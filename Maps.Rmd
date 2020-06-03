@@ -7,6 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(janitor)
 library(plotly)
+library(magick)
 library(tidyverse)
 ```
 
