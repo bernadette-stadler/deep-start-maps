@@ -1,0 +1,61 @@
+---
+title: "Maps"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(janitor)
+library(plotly)
+library(tidyverse)
+```
+
+
+```{r}
+
+location_data <- read_csv("USRUS nuclear weapons info.csv", col_types = cols(
+  Country = col_character(),
+  `Base/location` = col_character(),
+  Region = col_character(),
+  `Weapon system` = col_character(),
+  Remarks = col_character(),
+  Type = col_character(),
+  Lat = col_double(),
+  Long = col_double()
+)) %>% clean_names
+
+location_data <- location_data %>% mutate(side = if_else(country == "Russia", "Russia", "United States"))
+
+```
+
+
+```{r}
+
+g <- list(
+  scope = 'world',
+  projection = list(type = 'mercator'),
+  showland = TRUE,
+  showcountries = TRUE,
+  showocean = TRUE,
+  showcoastlines = TRUE,
+  coastlinecolor = toRGB("dimgray"),
+  oceancolor = toRGB("lightsteelblue2"),
+  landcolor = toRGB("gray95"),
+  countrycolor = toRGB("gray85"),
+  countrywidth = 0.5,
+  subunitwidth =0.5
+)
+
+
+location_data %>% filter(side %in% c("United States", "Russia"))%>% 
+  filter(str_detect(type, c("NSNW", "Strategic")) == TRUE) %>%
+plot_geo(lat = ~lat, lon = ~long, width = 800, height = 500) %>% 
+            add_markers(
+            text = ~paste('</br> Name: ', base_location,
+                          '</br> Delivery System: ', delivery_system,
+                          '</br> Weapon: ', warhead), 
+            color = ~status, symbol = I("circle"), size = I(8), hoverinfo = "text"
+        ) %>% 
+            layout(geo = g)
+```
+
