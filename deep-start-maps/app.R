@@ -216,7 +216,7 @@ server <- function(input, output) {
         titlefont = list(
           family = "Segoe UI",
           size = 18,
-          color = "rgb(255,255,255"
+          color = "rgb(255,255,255)"
         ),
         
         # specify title font, size, and color 
