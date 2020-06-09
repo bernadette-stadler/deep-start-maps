@@ -12,6 +12,7 @@ library(janitor)
 library(plotly)
 library(shinythemes)
 library(stringr)
+library(rnaturalearth)
 library(tidyverse)
 
 location_data <- read_csv("USRUS nuclear weapons info.csv", col_types = cols(
@@ -29,7 +30,11 @@ location_data <- read_csv("USRUS nuclear weapons info.csv", col_types = cols(
 # read in data, clean it up
 
 location_data <- location_data %>%
-  mutate(side = if_else(country == "Russia", "Russia", "United States"))
+  mutate(side = if_else(country == "Russia", "Russia", "United States")) %>% 
+  mutate(color = case_when(type == "NSNW" ~ "#377EB8", 
+                           type == "Strategic" ~ "#E41A1C", 
+                           type == "Strategic and NSNW" ~ "#4DAF4A", 
+                           TRUE ~ "#FF5733"))
 
 # mutate to specify side as U.S. or Russia. This converts any nuclear weapons stationed in NATO
 # countries to "United States"
@@ -45,7 +50,7 @@ ui <- fluidPage(
   # to keep spacing even. 
 
   column(
-    2,
+    3,
     
     # make left hand column. I used this instead of a sidebar for spacing reasons. 
     
@@ -89,9 +94,19 @@ ui <- fluidPage(
       # break for aesthetics 
       
       checkboxGroupInput("type",
-        "Weapon type",
-        choices = c("NSNW", "Strategic"),
-        selected = c("NSNW", "Strategic")
+        "System type",
+        choices = c("NSNW", "Strategic", "ABM"),
+        selected = c("NSNW", "Strategic", "ABM")
+      ), 
+        
+      br(), 
+      
+      # break for aesthetics 
+      
+      checkboxGroupInput("status",
+                         "System status",
+                         choices = c("Deployed", "Storage", "Production"),
+                         selected = c("Deployed", "Storage", "Production")
       )
       
       # second interactive variable, manipulated by a checkbox that includes NSNW and Strategic 
@@ -99,7 +114,7 @@ ui <- fluidPage(
   ),
 
   column(
-    10,
+    9,
     
     # second column 
     
@@ -141,70 +156,43 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   output$plot1 <- renderPlotly({
-      
-    g <- list(
-      scope = "world",
-      projection = list(type = "equirectangular"),
-      showland = TRUE,
-      showcountries = TRUE,
-      showocean = TRUE,
-      showcoastlines = TRUE,
-      showsubunits = TRUE,
-      coastlinecolor = toRGB("dimgray"),
-      oceancolor = toRGB("lightsteelblue2"),
-      landcolor = toRGB("gray95"),
-      countrycolor = toRGB("gray85"),
-      subunitcolor = toRGB("gray85"),
-      countrywidth = 0.5,
-      subunitwidth = 0.5
-    )
-    
-    # customize map parameters and save 
-
-    m <- list(
-      l = 10,
-      r = 10,
-      b = 10,
-      t = 0,
-      pad = 4
-    )
     
     # customize margins and save 
+    
+    world <- ne_countries(scale = "medium", returnclass = "sf")
 
-    location_data %>%
+    loc_dat <- location_data %>%
       filter(side %in% c(input$strana)) %>%
-      filter(str_detect(type, paste(c(input$type), collapse = "|")) == TRUE) %>%
+      filter(status %in% c(input$status)) %>% 
+      filter(str_detect(type, paste(c(input$type), collapse = "|")) == TRUE)
     
     # pipe data into two filters that take the interactive variables from above. The second interactive 
     # line makes it so that if both NSNW and Strategic are checked, all three possible options ("NSNW",
     # "Strategic", and "Strategic and NSNW") are returned, instead of only "Strategic" and "NSNW".
         
-      plot_geo(lat = ~lat, lon = ~long, autosize = F, width = 1200, height = 800, margin = m) %>%
+    plot <- ggplot()+ 
+      geom_sf(data = world, color = "dimgray", fill= "gray91", size = 0.1)+
+      coord_sf(xlim = c(-130, 130), ylim = c(-90, 90))+ 
+      geom_point(data = loc_dat, aes(x =long, 
+                                           y =lat, 
+                                           color = type, 
+                                           shape = type, 
+                                           text = paste(
+                                             "</br> Name: ", base_location,
+                                             "</br> Delivery System: ", delivery_system,
+                                             "</br> Warhead: ", warhead,
+                                             "</br> Warhead type: ", type
+                                           )))+
+      scale_color_manual(values = c("NSNW" = "red", 
+                                    "Strategic" = "dodgerblue", 
+                                    "Strategic and NSNW" = "purple4", 
+                                    "ABM" = "springgreen4"))+
+      labs(y = "", x = "", type = "")+
+      theme(panel.background = element_rect(fill = "lightsteelblue2"))+
+      theme(panel.grid.major = element_line(color = "lightsteelblue2"))+
+      theme(plot.margin = margin(1.5, 0, 0, 0, "cm"))
     
-    # make the map, specifying dimensions and margins 
-        
-      add_markers(
-          
-          # add markers 
-          
-        text = ~ paste(
-          "</br> Name: ", base_location,
-          "</br> Delivery System: ", delivery_system,
-          "</br> Warhead: ", warhead,
-          "</br> Warhead type: ", type
-        ),
-        
-        # specify what should disply as hover text 
-        
-        marker = list(color = "rgb(0,0,0)", 
-                      line = list(color = "rgb(0,0,0)")),
-        symbol = ~status, 
-        size = I(14), 
-        hoverinfo = "text"
-        
-        # specify marker color, symbols, size, etc.
-        
-      ) %>%
+    ggplotly(plot, autosize = F, width = 1200, height = 750, tooltip = "text") %>% 
       layout(
         title = list(
           text = "Deep START exercise: U.S. and Russian Nuclear Weapons Deployment",
@@ -213,17 +201,13 @@ server <- function(input, output) {
         
         # add title, center it 
         
-        titlefont = list(
+        titlefont= list(
           family = "Segoe UI",
           size = 18,
           color = "rgb(255,255,255)"
         ),
         
         # specify title font, size, and color 
-        
-        geo = g,
-        
-        # set paramaters based on list created above 
         
         legend = list(
           x = 0.8,
@@ -239,6 +223,8 @@ server <- function(input, output) {
         
         # color margins same as background in the shiny app
       )
+      
+    
   })
 
   output$logo <- renderImage(

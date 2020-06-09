@@ -4,15 +4,15 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(janitor)
 library(plotly)
-library(magick)
+library(rnaturalearth)
 library(tidyverse)
 ```
 
 
-```{r}
+```{r read in data, include = FALSE}
 
 location_data <- read_csv("USRUS nuclear weapons info.csv", col_types = cols(
   Country = col_character(),
@@ -30,33 +30,44 @@ location_data <- location_data %>% mutate(side = if_else(country == "Russia", "R
 ```
 
 
+```{r make map}
+
+world <- ne_countries(returnclass = "sf")
+
+plot <- ggplot()+ 
+  geom_sf(data = world, color = "gray", fill= "gray91")+
+  geom_point(data = location_data, aes(x =long, 
+                                       y =lat, 
+                                       color = type, 
+                                       shape = type, 
+                                       text = paste(
+          "</br> Name: ", base_location,
+          "</br> Delivery System: ", delivery_system,
+          "</br> Warhead: ", warhead,
+          "</br> Warhead type: ", type
+        )))+
+  scale_color_manual(values = c("NSNW" = "red", 
+                               "Strategic" = "dodgerblue", 
+                               "Strategic and NSNW" = "purple4", 
+                               "ABM" = "springgreen4"))+ 
+  labs(x = "", y = "")+
+  theme(legend.position = c(0.8, 0.3), 
+        legend.title = element_blank(), 
+        legend.background = element_rect(fill = "white", color = "black"),
+        legend.key = element_rect(fill = "white", color = "NA"))+
+  theme(        panel.background = element_rect(fill = "lightsteelblue2"), 
+        panel.grid.major = element_line(color = "lightsteelblue2"), 
+        plot.margin = margin(0, 0, 0, 0, "cm"))
+
+ggplotly(plot, width = 1200, height = 800, tooltip = "text") %>% 
+  
+
+
+```
+
 ```{r}
 
-g <- list(
-  scope = 'world',
-  projection = list(type = 'mercator'),
-  showland = TRUE,
-  showcountries = TRUE,
-  showocean = TRUE,
-  showcoastlines = TRUE,
-  coastlinecolor = toRGB("dimgray"),
-  oceancolor = toRGB("lightsteelblue2"),
-  landcolor = toRGB("gray95"),
-  countrycolor = toRGB("gray85"),
-  countrywidth = 0.5,
-  subunitwidth =0.5
-)
 
-
-location_data %>% filter(side %in% c("United States", "Russia"))%>% 
-  filter(str_detect(type, c("NSNW", "Strategic")) == TRUE) %>%
-plot_geo(lat = ~lat, lon = ~long, width = 800, height = 500) %>% 
-            add_markers(
-            text = ~paste('</br> Name: ', base_location,
-                          '</br> Delivery System: ', delivery_system,
-                          '</br> Weapon: ', warhead), 
-            color = ~status, symbol = I("circle"), size = I(8), hoverinfo = "text"
-        ) %>% 
-            layout(geo = g)
 ```
+
 
