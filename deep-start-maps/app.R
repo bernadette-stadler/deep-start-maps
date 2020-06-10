@@ -210,12 +210,23 @@ server <- function(input, output) {
         # specifying expands the map to fill the space better 
         
         labs(y = "", x = "", type = "")+
+        
+        # take out unnecessary labels 
+        
         theme(panel.background = element_rect(fill = "lightsteelblue2"))+
         theme(panel.grid.major = element_line(color = "lightsteelblue2"))+
+        
+        # change ocean and gridline color 
+        
         theme(plot.margin = margin(1.5, 0, 0, 0, "cm"))
       
+        # adjust margins 
       
-      ggplotly(plot, autosize = F, width = 1200, height = 750, tooltip = "text") %>% 
+      
+      ggplotly(plot, autosize = F, width = 1200, height = 750) %>% 
+        
+        # ggplotly it, specifying dimensions 
+        
         layout(
           title = list(
             text = "Deep START exercise: U.S. and Russian Nuclear Weapons Deployment",
@@ -248,9 +259,15 @@ server <- function(input, output) {
         )
       
     } else {
+      
+      # this is what to do if the number of rows in the data is not 0 
+      
       plot <- ggplot()+ 
         geom_sf(data = world, color = "dimgray", fill= "gray91", size = 0.1)+
         coord_sf(xlim = c(-130, 130), ylim = c(-90, 90))+ 
+        
+        # build map in same way as above 
+        
         geom_point(data = loc_dat, aes(x =long, 
                                        y =lat, 
                                        color = type,
@@ -259,22 +276,42 @@ server <- function(input, output) {
                                          "</br> Name: ", base_location,
                                          "</br> Delivery System: ", delivery_system,
                                          "</br> Warhead: ", warhead,
-                                         "</br> Warhead type: ", type
+                                         "</br> System type: ", type
                                        )))+
+        
+        # add geom_point layer. This will add points to the relevant locations. Also 
+        # specify text here so that ggplotly can call on it to generate hover text 
+        
         scale_color_manual(values = c("NSNW" = "red", 
                                       "Strategic" = "dodgerblue", 
                                       "Strategic and NSNW" = "purple4", 
                                       "ABM" = "springgreen4"))+
+        
+        # set colors to nuclear weapon type so that they don't change when boxes are 
+        # selected or unselected 
+        
         scale_shape_manual(values = c("NSNW" = 3, 
                                       "Strategic" = 15, 
                                       "Strategic and NSNW" = 16, 
                                       "ABM" = 17))+
+        
+        # set shapes as well 
+        
         labs(y = "", x = "", type = "")+
+        
+        # remove unnecessary labels 
+        
         theme(panel.background = element_rect(fill = "lightsteelblue2"))+
         theme(panel.grid.major = element_line(color = "lightsteelblue2"))+
         theme(plot.margin = margin(1.5, 0, 0, 0, "cm"))
       
+        # make same edits to background and margins as above 
+      
       ggplotly(plot, autosize = F, width = 1200, height = 750, tooltip = "text") %>% 
+        
+        # ggplotly it, specifying dimensions and refering the hover text back to "text" as 
+        # specified earlier 
+        
         layout(
           title = list(
             text = "Deep START exercise: U.S. and Russian Nuclear Weapons Deployment",
