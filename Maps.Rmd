@@ -9,6 +9,8 @@ library(janitor)
 library(plotly)
 library(rnaturalearth)
 library(tidyverse)
+library(ggplot2)
+library(rgeos)
 ```
 
 
@@ -34,8 +36,9 @@ location_data <- location_data %>% mutate(side = if_else(country == "Russia", "R
 
 world <- ne_countries(returnclass = "sf")
 
-plot <- ggplot()+ 
-  geom_sf(data = world, color = "gray", fill= "gray91")+
+ggplot()+ 
+  geom_sf(data = world, color = "gray", fill= "gray91")
+  
   geom_point(data = location_data, aes(x =long, 
                                        y =lat, 
                                        color = type, 
