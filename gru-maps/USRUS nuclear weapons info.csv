@@ -1,0 +1,63 @@
+Country,Base/location,Region,Delivery system,Warhead,Remarks,Status ,Type,Lat ,Long
+Turkey,Incirlik Air Base ,Adana,NATO dual-capable aircraft ,B61-3/4,US bombs for delivery by rotational F-16s from other US bases. No US fighter-wing permanently deployed,Deployed,NSNW,37,35.42
+Italy,Aviano Air Base,Friuli-Venezia Giulia,NATO dual-capable aircraft ,B61-3/4,For delivery by US F-16s of the 31st Fighter Wing,Deployed ,NSNW,46.04,12.61
+Russia,Belaya Air Base,Irkutsk,"Tu-22M3 ""Backfire"" bomber ","Air-launched cruise missile, bombs",For Tu-22M3 bombers. Weapons storage site west of runway,Deployed ,NSNW,52.92,103.58
+Russia,Shaykovka Air Base,Kaluga,"Tu-22M3 ""Backfire"" bomber ","Air-launched cruise missile, bombs",For Tu-22M3 bombers. Weapon storage site northeast of runway,Deployed,NSNW,54.23,34.37
+Russia,Alekseyevka-Mongokhto Air Base,Khabarovsk,Tu-142,Depth bombs,For Tu-142 naval aviation. Weapons storage site southeast of runway,Deployed,NSNW,49.23,140.19
+Belgium,Kline Brogel Air Base,Limburg,NATO dual-capable aircraft ,B61-3/4,US bombs for delivery by Belgian F-16s of the 10th Fighter Wing. Weapons in custody of US 701st MUNSS,Deployed,NSNW,51.17,5.47
+Italy,Ghedi Air Base,Lombardia,NATO dual-capable aircraft ,B61-3/4,US bombs for delivery by Italian PA-200 Tornados of the 6th Fighter Wing. Weapons in custody of US 704th MUNSS,Deployed,NSNW,45.44,10.28
+Russia,Moscow Anti-Ballsitic Missile system (multiple sites) ,Moscow,Gazelle Interceptors ,10 kt nuclear warhead ,Warheads for Moscow ABM system and 68 Gazelle interceptors,Deployed,ABM,55.75,37.62
+Netherlands,Volkel Air Base,Noord-Brabant,NATO dual-capable aircraft ,B61-3/4,US bombs for delivery by Dutch F-16s of the 1st Fighter Wing. Weapons in custody of US 703rd MUNSS,Deployed,NSNW,52.66,5.71
+Russia,Soltsy Air Base,Novogorod,"Tu-22M3 ""Backfire"" bomber ","Air-launched cruise missile, bombs",For Tu-22M3 bombers. Weapons storage site north of runway,Deployed,NSNW,58.14,30.32
+Germany,Buchel Air Base,Rheinland-Pfalz,NATO dual-capable aircraft ,B61-3/4,US bombs for delivery by German PA-200 Tornados of the 33rd Tactical Air Force Squadron. Weapons in custody of US 702nd MUNSS,Deployed,NSNW,50.18,7.06
+Russia,Gorny,Zabaykalsky,N/A ,Bombs ,Regional Air Force storage site,Storage,NSNW,51.53,113.02
+Russia,Barnaul Missile Division,Altai Krai,SS-25 ICBMs,550-800 kt warhead,Warheads for 36 ICBMs,Deployed,Strategic,53.58,83.76
+Russia,Ukrainka Air Base,Amur,"Tu-95 ""Bear"" bomber ","Air-launched cruise missile, bombs",For Tu-95 Bear bombers. Weapons storage area east of base,Deployed,Strategic,51.17,128.44
+United States,F.E. Warren Air Force Base and Missile Field,"Colorado, Nebraska, Wyoming","Minuteman III ICBM, GBSD","W78-0, W87",Warheads for 150 Minuteman III ICBMs,Deployed ,Strategic,41.14,-104.86
+United States,Kings Bay Naval Submarine Base,Georgia,"Trident II D5 SLBMs, including low-yield varient","W76-0, W76-1, W76-2, W88",For six Ohio-class SSBNs of which three to four are normally deployed and navy warhead storage site ,Deployed ,Strategic,30.79,-81.57
+Russia,Irkutsk Missile Division,Irkutsk,SS-27 ICBMs ,500 kt warhead,Warheads for 27 ICBMs,Deployed ,Strategic,52.32,104.23
+Russia,Teykovo Missile Division,Ivanovo,SS-27 ICBMs,500 kt warhead,Warheads for 36 ICBMs,Deployed ,Strategic,56.85,40.53
+Russia,Kozelsk Missile Division,Kaluga,SS-27 ICBMs ,500 kt warhead,Warheads for 20 ICBMs,Deployed,Strategic,54.03,35.77
+Russia,Rybachiy Naval Base,Kamchatka,SS-N-18 and SS-N-32 SLBMs,200 kt warhead (for SS-N-18) ,Warheads for Delta III and Borei SSBNs,Deployed,Strategic,52.9,158.55
+Russia,Vilyuchinsk,Kamchatka,SS-N-18 and SS-N-32 SLBMs,200 kt warhead (for SS-N-18) ,Warheads for Delta-III and Borei SSBNs,Deployed,Strategic,52.93,158.4
+Russia,Yagelnaya (Gadzhiyevo) Naval Base,Kola,SS-N-23 and SS-N-32 SLBMs,200 kt warhead (for SS-N-18) ,Warheads for Delta IV and Borei-class SSBNs. Weapons storage east of base. Might also store other naval weapons,Deployed,Strategic,69.26,33.33
+Russia,Uzhur Missile Division,Krasnoyarsk,"SS-18, SS-30 ICBMs","10 large or 16 small warheads, or hypersonic boost-glide vehicles (for SS-30)",Warheads for 28 ICBMs,Deployed ,Strategic,55.33,89.8
+Russia,Yoshkar-Ola Missile Division,Mari El,SS-25 ICBMs,550-800 kt warhead,Warheads for 27 ICBMs,Deployed,Strategic,56.63,47.85
+United States,Whiteman Air Force Base,Missouri,B-2A,"B61-7/11, B83-1",For B-2As of the 509th Bomb Wing,Deployed,Strategic,38.73,-93.56
+United States,Malmstrom Air Force Base and Missile Field,Montana,"Minuteman III ICBM, GBSD","W78-0, W87",Warheads for 150 Minuteman III ICBMs,Deployed,Strategic,47.5,-111.18
+United States,Kirtland Air Force Base Nuclear Weapons Complex,New Mexico,N/A ,"B61 (all types), W80-1, B83-1, W78-0, W87","Air Force storage site with 40 bays of 300,000 square feet (28,000 square meters)",Storage,Strategic,35.05,-106.53
+United States,Minot Air Force Base and Missile Field,North Dakota,"Minuteman III ICBM, GBSD","W78-0, W80-1, W87",Warheads for 150 Minuteman III ICBMs and ALCMs for B-52Hs of the 5th Bomb Wing (Minot) and the 2nd Bomb Wing (Barksdale),Deployed,Strategic,48.42,-101.34
+Russia,Vypolzovo Missile Division,Novogorod/Tver,SS-25 ICBMs,550-800 kt warhead,Warheads for 18 ICBMs,Deployed,Strategic,57.88,33.65
+Russia,Novosibirsk Missile Division,Novosibirsk,SS-27 ICBMs,500 kt warhead,Warheads for 27 ICBMs,Deployed,Strategic,55.33,83
+Russia,Dombarovsky Missile Division,Orenburg,"SS-18, SS-30 ICBMs","10 large or 16 small warheads, or hypersonic boost-glide vehicles (for SS-30)",Warheads for 18 ICBMs,Deployed,Strategic,50.75,59.5
+Russia,Engels Air Base,Saratov,"Tu-160 ""Blackjack"" and Tu-95 ""Bear"" bombers","Air-launched cruise missile, bombs",For Tu-160 Blackjack and Tu-95 Bear bombers. Weapons storage site south of base,Deployed,Strategic,51.49,46.21
+Russia,Tatishchevo Missile Division,Saratov,SS-27 ICBMs,500 kt warhead,Warheads for 60 ICBMs,Deployed,Strategic,51.67,45.57
+Russia,Nizhniy Tagil Missile Division,Sverdlovsk,SS-27 ICBMs,500 kt warhead,Warheads for 27 ICBMs,Deployed,Strategic,58.07,60.55
+United States,Bangor (Kitsap) Naval Submarine Base,Washington,"Trident II D5 SLBMs, including low-yield varient","W76-0, W76-1, W76-2, W88",Eight Ohio-class SSBNs of which five to six are normally deployed; navy warhead storage site. ,Deployed,Strategic,47.72,-122.72
+Russia,Golovchino (Belgorod-22),Belgorod,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,50.57,35.75
+Russia,Rzhanitsa (Bryansk-18),Bryansk,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,53.43,43.92
+United States,Lawrence Livermore National Laboratory,California,N/A ,"W80-1, B83-1, W87","Warhead design, surveillance, and maintenance",Production,Strategic and NSNW,37.69,-121.71
+Russia,Karabask (Chelyabinsk-115),Chelyabinsk,N/A ,Various,Possible national-level weapons storage site near Chelyabinsk-70 ,Storage,Strategic and NSNW,55.48,60.21
+Russia,Trekhgorny (Zlatoust-36),Chelyabinsk,N/A ,Various,One of two warhead production plants. National-level warhead storage site ten km to the east.,Production,Strategic and NSNW,54.78,58.45
+Russia,Kolosovka (Kulikovo),Kaliningrad,N/A ,Various,Regional weapons storage site,Storage,NSNW,54.8,20.3
+Russia,Korfovskiy (Khabarovsk-47),Khabarovsk,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,48.22,135.07
+Russia,Selikhino (Komsomolsk-31),Khabarovsk,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,50.37,137.5
+Russia,Nerpichya (Zaozyorsk),Kola,N/A ,Various,"Possible storage facility for naval weapons, including for nearby Bolshaya Lopatka and Nerpichya Naval Bases; possible storage facility for SLBMs and other naval weapons.",Storage,Strategic and NSNW,69.45,32.37
+Russia,Okolnaya (Severomorsk),Kola,N/A ,Various,Possible storage facility for SLBMs and other naval weapons,Storage,Strategic and NSNW,69.06,33.41
+Russia,Ramozero (Olenegorsk-2),Kola,N/A ,Various,National-level storage sites,Storage,Strategic and NSNW,68.238,33.865
+Russia,Shchukozero,Kola,N/A ,Various,Naval weapons storage site,Storage,Strategic and NSNW,69.04,33.62
+Russia,Dodonovo (Krasnoyarsk-26 or Shivera),Krasnoyarsk,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,56,93
+Russia,Gatchina,Leningrad,N/A ,Various,Regional weapons storage sitem,Storage,Strategic and NSNW,58.58,30.13
+Russia,Mozhaysk-10,Moscow,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,55.43,35.77
+United States,Los Alamos National Laboratory,New Mexico,N/A ,"B61 (all types), W76-0, W76-1, W78-0, W88","Warhead design, surveillance, and maintenance",Production,Strategic and NSNW,35.84,-106.29
+Russia,Chazma (Abrek) Bay,Primorsky,SLBMs/SLCMs/ASWs,Various,Storage site of warheads for SLBMs and other naval weapons,Storage,Strategic and NSNW,42.97,132.4
+Russia,Krasnoarmeyskoye (Saratov-63),Saratov,N/A ,Various,National-level weapons storage siteo,Storage,Strategic and NSNW,51.2,46.03
+Russia,Lesnoy-4 (Sverdlovsk-45/16),Sverdlovsk,N/A ,Various,One of two warhead production plants. Sverdlovsk-16 is a national-level weapons storage site eight kilometers west of the Sverdlovsk-45 plant,Production,Strategic and NSNW,58.63,59.78
+United States,Pantex Plant,Texas,N/A ,Various,"Assembly, disassembly, and dismantlement of all warhead types",Production,Strategic and NSNW,35.32,-101.54
+Russia,Zalari (Irkutsk-45),Transbaikal,N/A ,Various,National-level warhead storage site,Storage,Strategic and NSNW,53.55,102.5
+Russia,Chebsara (Vologda-20),Vologda,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,59.2,38.8
+Russia,Borisoglebsk (Voronezh-45),Voronezh,N/A ,Various,National-level weapons storage site,Storage,Strategic and NSNW,51.4,41.9
+United States ,Fort Greely,Alaska,N/A ,N/A,GMD site with 56 interceptors ,Deployed,ABM,63.89,-145.61
+United States ,Vandenberg Airforce Base,California,N/A ,N/A,GMD site with 10 interceptors ,Deployed,ABM,34.74,-120.57
+Romania ,Deveselu,Romania,N/A ,N/A ,EPAA site ,Deployed,ABM,44.06,24.39
+Poland,Redzikowo,Poland ,N/A ,N/A,EPAA site ,Deployed ,ABM,54.47,17.12

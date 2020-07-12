@@ -1,0 +1,12 @@
+name: deep-start-maps
+title: deep-start-maps
+username:
+account: bernadette-stadler
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2402592
+bundleId: 3252323
+url: https://bernadette-stadler.shinyapps.io/deep-start-maps/
+when: 1591802028.90871
+asMultiple: FALSE
+asStatic: FALSE

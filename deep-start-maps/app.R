@@ -33,7 +33,7 @@ location_data <- read_csv("USRUS nuclear weapons info.csv", col_types = cols(
 
 # read in data, clean it up  
 
-world <- ne_countries(scale = "medium", returnclass = "sf")
+world <- ne_countries(returnclass = "sf")
 
 # Save map as an r object. I'm doing it here instead of in the server in the hope that this
 # speeds up the app.
@@ -75,22 +75,16 @@ ui <- fluidPage(
       # now add a sidebar for aesthetics (the dark grey box is nice!). Set width to 12 so it takes up 
       # the entire column 
       
-      h5("This map shows major sites in the American and Russian nuclear weapons complexes, including 
+      h5("DEFENSE INTELLIGENCE AGENCY"), 
+      h5("***TOP SECRET***"), 
+      br(), 
+      h5("This interactive map shows major sites in the Russian nuclear weapons complexes, including 
          military sites with deployed weapons as well as storage and production sites. Hover over a 
          specific site for more information about it. Use the options below to select which sites are 
          displayed on the map. Use the icons in the upper right corner over the title to pan and zoom."),
       
       # explanatory text 
       
-      br(),
-      
-      # break for aesthetics 
-      
-      checkboxGroupInput("strana",
-                         "Country",
-                         choices = c("Russia", "United States"),
-                         selected = c("Russia", "United States")
-      ),
       
       # first interactive variable, manipulated by a checkbox that includes the United State or Russia 
       
@@ -112,53 +106,122 @@ ui <- fluidPage(
                          "System status",
                          choices = c("Deployed", "Storage", "Production"),
                          selected = c("Deployed", "Storage", "Production")
-      )
+      ), 
+      h5("Created by the Negotiation Task Force at the Davis Center for Russian and Eurasian Studies at Harvard University for the Deep START simulation.")
       
       # second interactive variable, manipulated by a checkbox that includes NSNW and Strategic 
     )
   ),
   
-  column(
-    9,
+  column(9, 
     
     # second column 
     
-    br(),
+    br(), 
+    br(), 
+    br(), 
+    br(), 
+    br(), 
+    br(), 
     
-    # break two align top of map with sidebar
+    # break to align top of map with sidebar
     
     plotlyOutput("plot1", height = "800px"),
     
     # map output, height specified in pixels to help with formatting beneath it
-  ),
+  ) 
   
-  # end first two columns 
-  
-  br(),
-  
-  # break for aesthetics 
-  
-  column(12,
-         
-         # bottom part of the page is one wide column taking up the full width 
-         
-         offset = 3,
-         
-         # offset to center text 
-         
-         h5("Sources:"),
-         h5("Hans M. Kristensen & Robert S. Norris (2017) Worldwide deployments of nuclear weapons, 
-            2017, Bulletin of the Atomic Scientists, 73:5, 289-297,"),
-         h5("Hans M. Kristensen & Matt Korda (2020) Russian nuclear forces, 2020, 
-            Bulletin of the Atomic Scientists, 76:2, 102-117,"),
-         h5("The CSIS Missile Threat Website")
-         
-         # add text with proper indentations/new lines 
-  )
-)
+  # end columns 
 
-# Define server logic required to draw a histogram
+  )
+
 server <- function(input, output) {
+  output$plot1 <- renderPlotly({
+      
+      loc_data <- location_data %>%
+        filter(side == "Russia") %>%
+        filter(status %in% c(input$status)) %>% 
+        filter(type %in% c(input$type))
+      
+      if (nrow(loc_data) == 0) {
+      
+    loc_data %>%  
+      filter(status == "abc") %>%
+      plot_ly(
+        lat = ~lat,
+        lon = ~long,
+        height = 600,
+        width = 1000,
+        type = "scattermapbox", 
+        split = ~type,
+        text = ~ paste(
+          "</br> Name: ", base_location,
+          "</br> Delivery System: ", delivery_system,
+          "</br> Warhead: ", warhead,
+          "</br> Warhead type: ", type
+        ),
+        hoverinfo = "text", 
+        marker = list(color = "type")) %>% 
+      layout(
+        legend = list(
+          x = 0.8,
+          y = 0.2,
+          bgcolor = "rgb(255, 255, 255)",
+          bordercolor = "rgb(0,0,0)",
+          borderwidth = 2
+        ), 
+        paper_bgcolor = "rgb(34,34,34)",
+        mapbox= list(
+        style = "white-bg",
+        zoom = 1.5,
+        center = list(lon = 80 ,lat= 50),
+        layers = list(list(
+          below = 'traces',
+          sourcetype = "raster",
+          source = list(
+"https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}")))))
+    
+      } else {
+        
+        loc_data %>%  
+          plot_ly(
+            lat = ~lat,
+            lon = ~long,
+            height = 600,
+            width = 1000,
+            type = "scattermapbox", 
+            split = ~type,
+            text = ~ paste(
+              "</br> Name: ", base_location,
+              "</br> Delivery System: ", delivery_system,
+              "</br> Warhead: ", warhead,
+              "</br> Warhead type: ", type
+            ),
+            hoverinfo = "text", 
+            marker = list(color = "type")) %>% 
+          layout(
+            legend = list(
+              x = 0.8,
+              y = 0.2,
+              bgcolor = "rgb(255, 255, 255)",
+              bordercolor = "rgb(0,0,0)",
+              borderwidth = 2
+            ), 
+            paper_bgcolor = "rgb(34,34,34)",
+            mapbox= list(
+              style = "white-bg",
+              zoom = 1.5,
+              center = list(lon = 80 ,lat= 50),
+              layers = list(list(
+                below = 'traces',
+                sourcetype = "raster",
+                source = list(
+                  "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}")))))
+        
+      }
+      
+  
+  })
   
   output$logo <- renderImage(
     {
@@ -175,178 +238,10 @@ server <- function(input, output) {
         # specify width and height for aesthetics 
       )
     },
-    
     deleteFile = FALSE
     
     # make sure file doesn't get deleted after printing 
   )
-  
-  output$plot1 <- renderPlotly({
-    
-    loc_dat <- location_data %>%
-      filter(side %in% c(input$strana)) %>%
-      filter(status %in% c(input$status)) %>% 
-      filter(type %in% c(input$type))
-    
-    # modify locatiton data based on inputs, save it. A gich that I encountered is that if all 
-    # boxes for a specific category are unchecked, an error was thrown because there was no data 
-    # for the scatterplot layer of the map (since all rows from the data were removed). To fix 
-    # this, I added the conditional statement below. If the number of rows in the data is zero, 
-    # the app now prints a blank map. If the nubmer of rows in the location data is not zero, 
-    # it prints a map with the relevant markers. 
-    
-    if (nrow(loc_dat) == 0) {
-      
-      plot <- ggplot()+ 
-        
-        # make a ggplot 
-        
-        geom_sf(data = world, color = "dimgray", fill= "gray91", size = 0.1)+
-        
-        # with a geom_sf layer that makes the map. Specify coutry color, line color and size 
-        
-        coord_sf(xlim = c(-130, 130), ylim = c(-90, 90))+
-        
-        # specifying expands the map to fill the space better 
-        
-        labs(y = "", x = "", type = "")+
-        
-        # take out unnecessary labels 
-        
-        theme(panel.background = element_rect(fill = "lightsteelblue2"))+
-        theme(panel.grid.major = element_line(color = "lightsteelblue2"))+
-        
-        # change ocean and gridline color 
-        
-        theme(plot.margin = margin(1.5, 0, 0, 0, "cm"))
-      
-        # adjust margins 
-      
-      
-      ggplotly(plot, autosize = F, width = 1200, height = 750) %>% 
-        
-        # ggplotly it, specifying dimensions 
-        
-        layout(
-          title = list(
-            text = "Deep START exercise: U.S. and Russian Nuclear Weapons Deployment",
-            y = 0.9, x = 0.55
-          ),
-          
-          # add title, center it 
-          
-          titlefont= list(
-            family = "Segoe UI",
-            size = 18,
-            color = "rgb(255,255,255)"
-          ),
-          
-          # specify title font, size, and color 
-          
-          legend = list(
-            x = 0.8,
-            y = 0.2,
-            bgcolor = "rgb(255, 255, 255)",
-            bordercolor = "rgb(0,0,0)",
-            borderwidth = 2
-          ),
-          
-          # change legend location and color 
-          
-          paper_bgcolor = "rgb(34,34,34)"
-          
-          # color margins same as background in the shiny app
-        )
-      
-    } else {
-      
-      # this is what to do if the number of rows in the data is not 0 
-      
-      plot <- ggplot()+ 
-        geom_sf(data = world, color = "dimgray", fill= "gray91", size = 0.1)+
-        coord_sf(xlim = c(-130, 130), ylim = c(-90, 90))+ 
-        
-        # build map in same way as above 
-        
-        geom_point(data = loc_dat, aes(x =long, 
-                                       y =lat, 
-                                       color = type,
-                                       shape = type,
-                                       text = paste(
-                                         "</br> Name: ", base_location,
-                                         "</br> Delivery System: ", delivery_system,
-                                         "</br> Warhead: ", warhead,
-                                         "</br> System type: ", type
-                                       )))+
-        
-        # add geom_point layer. This will add points to the relevant locations. Also 
-        # specify text here so that ggplotly can call on it to generate hover text 
-        
-        scale_color_manual(values = c("NSNW" = "red", 
-                                      "Strategic" = "dodgerblue", 
-                                      "Strategic and NSNW" = "purple4", 
-                                      "ABM" = "springgreen4"))+
-        
-        # set colors to nuclear weapon type so that they don't change when boxes are 
-        # selected or unselected 
-        
-        scale_shape_manual(values = c("NSNW" = 3, 
-                                      "Strategic" = 15, 
-                                      "Strategic and NSNW" = 16, 
-                                      "ABM" = 17))+
-        
-        # set shapes as well 
-        
-        labs(y = "", x = "", type = "")+
-        
-        # remove unnecessary labels 
-        
-        theme(panel.background = element_rect(fill = "lightsteelblue2"))+
-        theme(panel.grid.major = element_line(color = "lightsteelblue2"))+
-        theme(plot.margin = margin(1.5, 0, 0, 0, "cm"))
-      
-        # make same edits to background and margins as above 
-      
-      ggplotly(plot, autosize = F, width = 1200, height = 750, tooltip = "text") %>% 
-        
-        # ggplotly it, specifying dimensions and refering the hover text back to "text" as 
-        # specified earlier 
-        
-        layout(
-          title = list(
-            text = "Deep START exercise: U.S. and Russian Nuclear Weapons Deployment",
-            y = 0.9, x = 0.55
-          ),
-          
-          # add title, center it 
-          
-          titlefont= list(
-            family = "Segoe UI",
-            size = 18,
-            color = "rgb(255,255,255)"
-          ),
-          
-          # specify title font, size, and color 
-          
-          legend = list(
-            x = 0.8,
-            y = 0.2,
-            bgcolor = "rgb(255, 255, 255)",
-            bordercolor = "rgb(0,0,0)",
-            borderwidth = 2
-          ),
-          
-          # change legend location and color 
-          
-          paper_bgcolor = "rgb(34,34,34)"
-          
-          # color margins same as background in the shiny app
-        )
-    }
-    
-    
-  })
-  
 }
 
 # Run the application

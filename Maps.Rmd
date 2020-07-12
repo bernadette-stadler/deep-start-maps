@@ -27,7 +27,7 @@ location_data <- read_csv("USRUS nuclear weapons info.csv", col_types = cols(
   Long = col_double()
 )) %>% clean_names
 
-location_data <- location_data %>% mutate(side = if_else(country == "Russia", "Russia", "United States"))
+location_data <- location_data %>% mutate(side = if_else(country == "Russia", "Russia", "United States")) 
 
 ```
 
@@ -69,6 +69,32 @@ ggplotly(plot, width = 1200, height = 800, tooltip = "text") %>%
 ```
 
 ```{r}
+
+location_data %>% filter(side == "Russia") %>%
+  plot_ly(
+    lat = ~lat,
+    lon = ~long,
+    height = 500,
+    width = 1000,
+    type = "scattermapbox",
+    hovertext =  ~ paste(
+          "</br> Name: ", base_location,
+          "</br> Delivery System: ", delivery_system,
+          "</br> Warhead: ", warhead,
+          "</br> Warhead type: ", type
+        ),
+    marker = list(color = "red")) %>%
+  layout(mapbox= list(
+    style = "white-bg",
+    zoom = 1.5,
+    center = list(lon = 80 ,lat= 50),
+    autosize = F,
+    height = 1200,
+    width = 800,
+    layers = list(list(
+      below = 'traces',
+      sourcetype = "raster",
+      source = list("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}")))))
 
 
 ```
