@@ -5,8 +5,8 @@ account: bernadette-stadler
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2560610
-bundleId: 3381059
+bundleId: 3570195
 url: https://bernadette-stadler.shinyapps.io/deep-start-maps-dia/
-when: 1594510905.57589
+when: 1598712594.13335
 asMultiple: FALSE
 asStatic: FALSE

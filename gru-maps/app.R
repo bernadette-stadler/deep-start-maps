@@ -109,7 +109,7 @@ ui <- fluidPage(
             ), 
             br(), 
             h5("Created by the Negotiation Task Force at the Davis Center for Russian and Eurasian 
-     Studies at Harvard University for the Deep START simulation.")
+     Studies at Harvard University for the Deep START simulation. Based on open-source data.")
             
             # second interactive variable, manipulated by a checkbox that includes NSNW and Strategic 
         )
@@ -146,11 +146,13 @@ server <- function(input, output) {
             filter(status %in% c(input$status)) %>% 
             filter(type %in% c(input$type))
         
-        if (nrow(loc_data) == 0) {
+        # filter data based on imputs 
             
             loc_data %>%  
-                filter(status == "abc") %>%
                 plot_ly(
+                    
+                # use plotly to make a image 
+                    
                     lat = ~lat,
                     lon = ~long,
                     height = 600,
@@ -165,6 +167,10 @@ server <- function(input, output) {
                     ),
                     hoverinfo = "text", 
                     marker = list(color = "type")) %>% 
+                
+                # set plot_ly specifications, inlcuding the hovertext to be displayed using paste so
+                # that more information can be displated and nicely formatted. 
+                
                 layout(
                     legend = list(
                         x = 0.8,
@@ -173,7 +179,13 @@ server <- function(input, output) {
                         bordercolor = "rgb(0,0,0)",
                         borderwidth = 2
                     ), 
+                    
+                    # create legend, set colors and location 
+                    
                     paper_bgcolor = "rgb(34,34,34)",
+                    
+                    # set background color 
+                    
                     mapbox= list(
                         style = "white-bg",
                         zoom = 1.5,
@@ -183,46 +195,8 @@ server <- function(input, output) {
                             sourcetype = "raster",
                             source = list(
                                 "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}")))))
-            
-        } else {
-            
-            loc_data %>%  
-                plot_ly(
-                    lat = ~lat,
-                    lon = ~long,
-                    height = 600,
-                    width = 1000,
-                    type = "scattermapbox", 
-                    split = ~type,
-                    text = ~ paste(
-                        "</br> Name: ", base_location,
-                        "</br> Delivery System: ", delivery_system,
-                        "</br> Warhead: ", warhead,
-                        "</br> Warhead type: ", type
-                    ),
-                    hoverinfo = "text", 
-                    marker = list(color = "type")) %>% 
-                layout(
-                    legend = list(
-                        x = 0.8,
-                        y = 0.2,
-                        bgcolor = "rgb(255, 255, 255)",
-                        bordercolor = "rgb(0,0,0)",
-                        borderwidth = 2
-                    ), 
-                    paper_bgcolor = "rgb(34,34,34)",
-                    mapbox= list(
-                        style = "white-bg",
-                        zoom = 1.5,
-                        center = list(lon = -45 ,lat= 35),
-                        layers = list(list(
-                            below = 'traces',
-                            sourcetype = "raster",
-                            source = list(
-                                "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}")))))
-            
-        }
-        
+           
+             # set satellite imagery as map background 
         
     })
     
@@ -233,10 +207,10 @@ server <- function(input, output) {
             # which corresponds with the imageOutput("Image") above.
             
             list(
-                src = "ACONA.png",
+                src = "NTF logo flipped 2.png",
                 contentType = "image/png",
                 width = 96,
-                height = 72
+                height = 96
                 
                 # specify width and height for aesthetics 
             )

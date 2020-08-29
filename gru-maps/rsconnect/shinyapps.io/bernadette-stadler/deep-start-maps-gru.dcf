@@ -5,8 +5,8 @@ account: bernadette-stadler
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2561234
-bundleId: 3381042
+bundleId: 3570177
 url: https://bernadette-stadler.shinyapps.io/deep-start-maps-gru/
-when: 1594510391.29823
+when: 1598712373.81339
 asMultiple: FALSE
 asStatic: FALSE
